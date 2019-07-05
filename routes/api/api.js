@@ -319,10 +319,10 @@ router.post('/generate', checkAuth, (req, res) => {
             if (err) {
                 res.status(404).json('not found');
             } else {
-                res.send(data);
+                res.status(201).json({ success: true })
                 setTimeout(() => {
                     fs.unlinkSync(pdfPath)
-                }, 1000);
+                }, 6000);
             }
 
         });
@@ -361,6 +361,22 @@ router.get('/clearanddeluser/:user', checkAuth, (req, res) => {
     User.findByIdAndDelete(req.params.user)
         .then(e => e)
         .catch(e => e)
+
+
+})
+
+router.get('/getpdf/:path', (req, res) => {
+
+    const path = req.params.path;
+
+    fs.readFile('upload/' + path, function read(err, data) {
+        if (err) {
+            res.status(404).json('not found');
+        } else {
+            res.send(data);
+        }
+
+    });
 
 
 })
