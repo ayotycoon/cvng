@@ -6,7 +6,7 @@ const apiRouter = require('./routes/api/api');
 const adminRouter = require('./routes/admin/admin');
 
 const app = express();
-const cors = require('cors');
+
 app.use(logger('dev'));
 app.use(express.json({ limit: '2mb'}));
 app.use(express.urlencoded({ extended: true, limit:'2mb' }));
@@ -15,9 +15,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 require('dotenv').config()
 // mongoose
 const mongoose = require('mongoose');
-app.use(cors())
+
 
 if (process.env.ISPRODUCTION === 'false') {
+    const cors = require('cors');
+    app.use(cors());
     mongoose.connect(process.env.CONNECTION_URI_local, { useNewUrlParser: true }).then(c => console.log('connected to db'))
         .catch(c => console.log('connection to db error local'))
 } else {
