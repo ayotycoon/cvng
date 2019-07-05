@@ -15,8 +15,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.4.10",
     "morgan": "~1.9.0",
-    "multer": "^1.4.1",
-    "puppeteer": "^1.18.0"
+    "multer": "^1.4.1"
   },
   "devDependencies": {
     "cors": "^2.8.5",
