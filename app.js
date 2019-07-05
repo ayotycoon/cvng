@@ -16,13 +16,14 @@ require('dotenv').config()
 // mongoose
 const mongoose = require('mongoose');
 
-
+let port = 8080;
 if (process.env.ISPRODUCTION === 'false') {
     const cors = require('cors');
     app.use(cors());
     mongoose.connect(process.env.CONNECTION_URI_local, { useNewUrlParser: true }).then(c => console.log('connected to db'))
         .catch(c => console.log('connection to db error local'))
 } else {
+    port = PROCESS.ENV.PORT;
     mongoose.connect(process.env.CONNECTION_URI_web, { useNewUrlParser: true }).then(c => console.log('connected to db'))
         .catch(c => console.log('connection to db error - web'))
 }
@@ -33,7 +34,7 @@ app.use('/admin', adminRouter);
 app.get('*', (req, res) => {
     res.sendFile(path.resolve('public/index.html'));
 });
-const port = 8080;
+
 
 app.listen(port, () => {
     console.log('connected to server');
