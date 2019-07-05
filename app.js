@@ -23,7 +23,7 @@ if (process.env.ISPRODUCTION === 'false') {
     mongoose.connect(process.env.CONNECTION_URI_local, { useNewUrlParser: true }).then(c => console.log('connected to db'))
         .catch(c => console.log('connection to db error local'))
 } else {
-    port = PROCESS.ENV.PORT;
+    port = process.env.PORT;
     mongoose.connect(process.env.CONNECTION_URI_web, { useNewUrlParser: true }).then(c => console.log('connected to db'))
         .catch(c => console.log('connection to db error - web'))
 }
