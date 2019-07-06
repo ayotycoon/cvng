@@ -313,21 +313,30 @@ router.post('/generate', checkAuth, (req, res) => {
     const tokenUser = getUser(req)._id;
     const html = req.body.html;
     const pdfPath = `upload/${tokenUser}.pdf`;
+    fs.readFile(pdfPath, function read(err, data) {
+        // check of its there first
+        if(err) {
+            pdf.create(html, options).toFile(pdfPath, function (err, res_) {
+                fs.readFile(pdfPath, function read(err, data) {
+                    if (err) {
+                        res.status(404).json('not found');
+                    } else {
+                        res.status(201).json({ success: true })
+                        setTimeout(() => {
+                            fs.unlinkSync(pdfPath)
+                        }, 6000);
+                    }
 
-    pdf.create(html, options).toFile(pdfPath, function (err, res_) {
-        fs.readFile(pdfPath, function read(err, data) {
-            if (err) {
-                res.status(404).json('not found');
-            } else {
-                res.status(201).json({ success: true })
-                setTimeout(() => {
-                    fs.unlinkSync(pdfPath)
-                }, 6000);
-            }
+                });
 
-        });
+            })
+        } else {
+            res.status(201).json({ success: false})
+        }
+    });
 
-    })
+
+  
 
 
 

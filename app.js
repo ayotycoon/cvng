@@ -17,12 +17,15 @@ require('dotenv').config()
 const mongoose = require('mongoose');
 
 let port = 8080;
-if (process.env.ISPRODUCTION === 'false') {
+const ISPRODUCTION = process.env.ISPRODUCTION;
+if (ISPRODUCTION == 'false') {
+    console.log('1')
     const cors = require('cors');
     app.use(cors());
     mongoose.connect(process.env.CONNECTION_URI_local, { useNewUrlParser: true }).then(c => console.log('connected to db'))
         .catch(c => console.log('connection to db error local'))
 } else {
+    console.log('2')
     port = process.env.PORT;
     mongoose.connect(process.env.CONNECTION_URI_web, { useNewUrlParser: true }).then(c => console.log('connected to db'))
         .catch(c => console.log('connection to db error - web'))
