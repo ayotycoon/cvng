@@ -64,11 +64,14 @@ router.post('/setMyProfileData', checkAuth, (req, res) => {
     User.findByIdAndUpdate(tokenUser)
         .select('-pwd')
         .then(data => {
+
             if (data) {
                 data.img = req.body.img;
                 data.role = req.body.role;
                 data.address = req.body.address;
                 data.name = req.body.name;
+                data.smLinkedln = req.body.smLinkedln;
+                data.smTwitter = req.body.smTwitter;
                 data.phone = req.body.phone;
                 data.bio = req.body.bio;
                 data.skills = req.body.skills;
@@ -311,25 +314,45 @@ router.post('/setMyProfilePhoto', upload.single('profile'), checkAuth, (req, res
 
 router.post('/generate', checkAuth, (req, res) => {
     const tokenUser = getUser(req)._id;
-    const html = req.body.html;
+    let html = req.body.html;
     const pdfPath = `upload/${tokenUser}.pdf`;
     fs.readFile(pdfPath, function read(err, data) {
         // check of its there first
+        // http://localhost:8080/api/getimages/5d0a69e351d2144ca0224638.JPG'
+        // 'https://cvngayotycoon.herokuapp.com/api/getimages/5d0a69e351d2144ca0224638.JPG'
         if(err) {
-            pdf.create(html, options).toFile(pdfPath, function (err, res_) {
-                fs.readFile(pdfPath, function read(err, data) {
-                    if (err) {
-                        res.status(404).json('not found');
-                    } else {
-                        res.status(201).json({ success: true })
-                        setTimeout(() => {
-                            fs.unlinkSync(pdfPath)
-                        }, 6000);
-                    }
 
-                });
+            let imgMatcher = html.match(/\w+\.(png|JPG|jpg|jpeg|JPEG)/);
+            if (imgMatcher) {
+                imgMatcher = imgMatcher[0];
+                html = html.replace(/https?:\/\/\w+\.\w+?\.?\.com\/api\/getimages\/\w+\.(png|JPG|jpg|jpeg|JPEG)/, './assets/' + imgMatcher)
+            }
+            
+            console.log(imgMatcher)
+            fs.copyFile(`upload/${imgMatcher}`, `assets/${imgMatcher}`, (err) => {
 
-            })
+                pdf.create(html, options).toFile(pdfPath, function (err, res_) {
+                    fs.readFile(pdfPath, function read(err, data) {
+                        if (err) {
+                            res.status(404).json('not found');
+                        } else {
+                            res.status(201).json({ success: true })
+                            setTimeout(() => {
+                                fs.unlinkSync(pdfPath)
+                                if (imgMatcher) {
+                                    fs.unlinkSync('assets/' + imgMatcher);
+                                    console.log(html)
+                                }
+                       
+                            }, 6000);
+                        }
+
+                    });
+
+                })
+            });
+
+  
         } else {
             res.status(201).json({ success: false})
         }

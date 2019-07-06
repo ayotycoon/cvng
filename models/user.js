@@ -7,14 +7,23 @@ const user = mongoose.Schema({
         type: String,
         required: true
     },
-role:{
-    type: String,
-    default: ''
-},
-address:{
-    type: String,
-    default: ''
-},
+    role: {
+        type: String,
+        default: ''
+    },
+    address: {
+        type: String,
+        default: ''
+    },
+    smLinkedln: {
+        type: String,
+        default: ''
+    },
+    smTwitter: {
+        type: String,
+        default: ''
+    },
+
     phone: {    //phone
         type: String,
         required: true
@@ -33,7 +42,7 @@ address:{
     skills: [{ skill: String, grade: Number }],
     softwares: [{ software: String, grade: Number }],
     experience: [{ workplace: String, points: String, startYear: Number, endYear: String, address: String, role: String }],
-    education: [{ school: String,degree: String, points: String, startYear: Number, endYear: String }],
+    education: [{ school: String, degree: String, points: String, startYear: Number, endYear: String }],
 
     languages: [
         { title: String, grade: Number }
@@ -52,6 +61,7 @@ address:{
         type: String,
         required: true
     },
+    interests: [{ title: String, grade: Number }],
 
 
     date: {
