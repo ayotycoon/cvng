@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1562461040716,
+  "timestamp": 1562500152459,
   "index": "/index.html",
   "assetGroups": [
     {
@@ -10,8 +10,8 @@
       "urls": [
         "/favicon.ico",
         "/index.html",
-        "/main-es2015.de30f699b31f700d1af3.js",
-        "/main-es5.3b83929b1386f2e46eb1.js",
+        "/main-es2015.d17e8fd71f9621b87667.js",
+        "/main-es5.f6e387d0f57d6be85273.js",
         "/polyfills-es2015.27661dfa98f6332c27dc.js",
         "/polyfills-es5.405730e5ac8f727bd7d7.js",
         "/runtime-es2015.858f8dd898b75fe86926.js",
@@ -37,6 +37,7 @@
         "/assets/icons/icon-96x96.png",
         "/assets/imgs/login.svg",
         "/assets/imgs/reg.svg",
+        "/assets/js/fa.js",
         "/assets/js/rainbow-custom.min.js",
         "/assets/monaco/vs/base/worker/workerMain.js",
         "/assets/monaco/vs/basic-languages/html/html.js",
@@ -88,6 +89,7 @@
     "/assets/icons/icon-96x96.png": "3914125a4b445bf111c5627875fc190f560daa41",
     "/assets/imgs/login.svg": "7b81b36f8a275937d6d5d5ddf6bbaf4352f3c7e1",
     "/assets/imgs/reg.svg": "fba7efdd18c6d7a87971d29ebd567cb8a0d11cca",
+    "/assets/js/fa.js": "83a51ae88e4ad7b3d108e5a9c4e44fb340dd4925",
     "/assets/js/rainbow-custom.min.js": "8f67b1c896786d55c8721514d86177a8330419cd",
     "/assets/monaco/vs/base/worker/workerMain.js": "328b6dca5464043fc59b478ce9aaadf827204b0a",
     "/assets/monaco/vs/basic-languages/html/html.js": "fad64f504fb339df723ab49d91947d3592876b8d",
@@ -122,9 +124,9 @@
     "/assets/sample1.svg": "e60343275fc3ffc43411d0d298afe580d0b64622",
     "/assets/sample2.svg": "96f33db224942ade0416c67d016a6e7f19ef071d",
     "/favicon.ico": "84161b857f5c547e3699ddfbffc6d8d737542e01",
-    "/index.html": "fdd7c32a8f1c303fb0dc2037db1ed45d356a71e4",
-    "/main-es2015.de30f699b31f700d1af3.js": "322842e4dd406f023af3e39a1d686ebb16a556a1",
-    "/main-es5.3b83929b1386f2e46eb1.js": "113794ab9da97dd5ae6d207b1ebb4f6a1e21bd1e",
+    "/index.html": "f1077974b900d51820c19723f13e9dfe18c78ea6",
+    "/main-es2015.d17e8fd71f9621b87667.js": "7f9187919ee8484c12094505d71e877eb4f870c6",
+    "/main-es5.f6e387d0f57d6be85273.js": "bdde4bc17257be03607000a76a8c43fe19459ee3",
     "/polyfills-es2015.27661dfa98f6332c27dc.js": "77f974dd2b186031cfc4f4526d96db4efcd39353",
     "/polyfills-es5.405730e5ac8f727bd7d7.js": "042d7744ef82a64c73310f1db253736731a03950",
     "/runtime-es2015.858f8dd898b75fe86926.js": "b62956c2192bfe5516d6374e753773901ed50ec5",
