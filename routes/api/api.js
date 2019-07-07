@@ -405,6 +405,7 @@ router.get('/getpdf/:path', (req, res) => {
         if (err) {
             res.status(404).json('not found');
         } else {
+            res.setHeader('Content-type', 'application/pdf');
             res.send(data);
             res.end();
         }
