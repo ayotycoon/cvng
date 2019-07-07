@@ -406,6 +406,7 @@ router.get('/getpdf/:path', (req, res) => {
             res.status(404).json('not found');
         } else {
             res.send(data);
+            res.end();
         }
 
     });
