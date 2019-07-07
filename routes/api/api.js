@@ -325,7 +325,7 @@ router.post('/generate', checkAuth, (req, res) => {
             let imgMatcher = html.match(/\w+\.(png|JPG|jpg|jpeg|JPEG)/);
             if (imgMatcher) {
                 imgMatcher = imgMatcher[0];
-                html = html.replace(/https?:\/\/\w+\.\w+?\.?\.com\/api\/getimages\/\w+\.(png|JPG|jpg|jpeg|JPEG)/, './assets/' + imgMatcher)
+                html = html.replace(/\/api\/getimages\/\w+\.(png|JPG|jpg|jpeg|JPEG)/, './' + imgMatcher)
             }
             
             console.log(imgMatcher)
