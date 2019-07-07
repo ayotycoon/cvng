@@ -70,6 +70,7 @@ router.post('/setMyProfileData', checkAuth, (req, res) => {
                 data.role = req.body.role;
                 data.address = req.body.address;
                 data.name = req.body.name;
+                data.interests = req.body.interests;
                 data.smLinkedln = req.body.smLinkedln;
                 data.smTwitter = req.body.smTwitter;
                 data.phone = req.body.phone;
@@ -80,7 +81,7 @@ router.post('/setMyProfileData', checkAuth, (req, res) => {
                 data.education = req.body.education;
                 data.languages = req.body.languages;
                 data.save().then(r => {
-                    console.log(r)
+                    
                     if (r) {
                         res.status(201).json({ success: true })
                     } else {
@@ -160,7 +161,7 @@ router.get('/getTemplates', (req, res) => {
     if (owner) {
         queryObject['owner'] = owner
     }
-    console.log(queryObject)
+    
 
     Template.find(queryObject)
         .limit(limit)
@@ -285,7 +286,7 @@ router.post('/setMyProfilePhoto', upload.single('profile'), checkAuth, (req, res
             if (data) {
                 fs.unlink('upload/' + data.img, (err) => {
                     if (err) {
-                        console.log(err);
+                        
                     }
                     const tmp = req.file.originalname.split('.');
                     const fileExt = tmp[tmp.length - 1]
@@ -328,7 +329,7 @@ router.post('/generate', checkAuth, (req, res) => {
                 html = html.replace(/\/api\/getimages\/\w+\.(png|JPG|jpg|jpeg|JPEG)/, './' + imgMatcher)
             }
             
-            console.log(imgMatcher)
+
             fs.copyFile(`upload/${imgMatcher}`, `assets/${imgMatcher}`, (err) => {
 
                 pdf.create(html, options).toFile(pdfPath, function (err, res_) {
@@ -336,14 +337,14 @@ router.post('/generate', checkAuth, (req, res) => {
                         if (err) {
                             res.status(404).json('not found');
                         } else {
-                            res.status(201).json({ success: true, html })
+                            res.status(201).json({ success: true})
                             setTimeout(() => {
                                 fs.unlinkSync(pdfPath)
                                 if (imgMatcher) {
                                     fs.unlinkSync('assets/' + imgMatcher);
                                 }
                        
-                            }, 6000);
+                            }, 10000);
                         }
 
                     });
