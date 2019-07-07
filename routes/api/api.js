@@ -336,12 +336,11 @@ router.post('/generate', checkAuth, (req, res) => {
                         if (err) {
                             res.status(404).json('not found');
                         } else {
-                            res.status(201).json({ success: true })
+                            res.status(201).json({ success: true, html })
                             setTimeout(() => {
                                 fs.unlinkSync(pdfPath)
                                 if (imgMatcher) {
                                     fs.unlinkSync('assets/' + imgMatcher);
-                                    console.log(html)
                                 }
                        
                             }, 6000);
