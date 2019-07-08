@@ -6,10 +6,22 @@ const mongoose = require('mongoose');
 const User = require('../../models/user');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
+const fetchUrl = require("fetch").fetchUrl;
 
 
 
 router.post('/register', function (req, res, next) {
+    // source file is iso-8859-15 but it is converted to utf-8 automatically
+    fetchUrl("https://www.google.com/recaptcha/api/siteverify",
+    {method: 'POST',
+payload: {
+    secret: process.env.CAPCHASECRET,
+    response: req.body.capchaToken
+}},
+    function (error, meta, body) {
+        console.log(body)
+    });
+
     console.log(req.body)
     User.findOne({ email: req.body.email }).then(user => {
         if (user) {
