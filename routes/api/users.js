@@ -54,7 +54,7 @@ router.post('/register', function (req, res, next) {
                                     smTwitter: 'salesrep',
                                     role: 'Customer service assistant',
                                     address: '26 Off Badore Road, Badore, Ajah, Lagos',
-                                    smLinkedln: 'k17mail',
+
                                     bio: `Highly communicative individual with strong interpersonal skills and an ability to adapt to working in team environments. Motivated by challenge, an astute and dedicated student working to the highest of ability and effectively managing the challenges of part-time employment while successfully completing VCE. Ongoing volunteer engagement demonstrates a focus on community, while work in customer service field demonstrates reliability, honesty, integrity and ability to collaborate. `,
                                     // skills
 
