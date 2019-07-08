@@ -21,6 +21,7 @@ router.post('/register', function (req, res, next) {
         }
 
     }, function (error, response, body) {
+        console.log(body)
         if(body.success) {
             if(body.score > 0.5) {
                 User.findOne({ email: req.body.email }).then(user => {
