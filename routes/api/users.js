@@ -21,10 +21,9 @@ router.post('/register', function (req, res, next) {
         }
 
     }, function (error, response, body) {
-        console.log(body)
         body = JSON.parse(body);
         if(body.success) {
-            if(body.score >= 0.5) {
+
                 User.findOne({ email: req.body.email }).then(user => {
                     if (user) {
                         res.status(201).json({ success: false, msg: 'Email already exists' });
@@ -111,9 +110,7 @@ router.post('/register', function (req, res, next) {
                 res.status(201).json({ success: false, msg: 'Invalid capcha' })
 
             }
-        } else {
-            res.status(201).json({ success: false, msg: 'Invalid capcha' })
-        }
+
         
     });
 
