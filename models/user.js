@@ -38,7 +38,10 @@ const user = mongoose.Schema({
     },
     smTwitter: String,
     smLinkedln: String,
-    bio: String,
+    bio: {     //name
+        type: String,
+        default: ''
+    },
     skills: [{ skill: String, grade: Number }],
     softwares: [{ software: String, grade: Number }],
     experience: [{ workplace: String, points: String, startYear: Number, endYear: String, address: String, role: String }],
