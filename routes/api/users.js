@@ -8,6 +8,8 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const request = require('request');
 
+const checkAuth = require('../../middleware/check-auth');
+const getUser = require('../../middleware/getUser');
 
 
 router.post('/register', function (req, res, next) {
@@ -127,7 +129,10 @@ router.post('/login', function (req, res, next) {
             if (user) {
                 const hashedPwd = user.pwd;
                 bcrypt.compare(pwd, hashedPwd, function (err, bcryptRes) {
-                    if (err) throw err;
+                    if (err) {
+                        res.status(201).json({ success: false, msg: 'Incorrect email or password' })
+                        return;
+                    }
 
                     if (bcryptRes) {
                         const token = jwt.sign(
@@ -143,6 +148,47 @@ router.post('/login', function (req, res, next) {
                             }
                         )
                         res.status(201).json({ success: true, token: token })
+                    } else {
+                        res.status(201).json({ success: false, msg: 'Incorrect email or password' })
+                    }
+
+
+                });
+            } else {
+                res.status(201).json({ success: false, msg: 'Incorrect email or password' })
+            }
+
+        })
+        .catch(err => res.status(201).json({ success: false, msg: 'Incorrect email or password' }))
+});
+router.post('/changepassword',checkAuth, function (req, res, next) {
+    const tokenUser = getUser(req)._id;
+
+    const newpwd = req.body.newpwd.trim().toLowerCase();
+    const oldpwd = req.body.oldpwd.trim().toLowerCase();
+    console.log(req.body)
+    User.findById(tokenUser)
+        .then(user => {
+            if (user) {
+                const hashedPwd = user.pwd;
+                bcrypt.compare(oldpwd, hashedPwd, function (err, bcryptRes) {
+                    if (err){
+                        res.status(201).json({ success: false, msg: 'Incorrect old password' })
+                        return;
+                    }
+
+                    if (bcryptRes) {
+                        bcrypt.hash(newpwd, saltRounds, function (err, hash) {
+                            user.pwd = hash;
+                            user.save().then(r => {
+                                res.status(201).json({success: true})
+                            })
+                            .catch(e => res.status(201).json({success: false}))
+
+
+                        });
+                    } else {
+                        res.status(201).json({ success: false, msg: 'Incorrect old password' })
                     }
 
 
