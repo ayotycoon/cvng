@@ -284,6 +284,51 @@ router.post('/setMyProfilePhoto', upload.single('profile'), checkAuth, (req, res
     User.findByIdAndUpdate(tokenUser)
         .then(data => {
             if (data) {
+
+                try {
+                    if (fs.existsSync('upload/' + data.img)) {
+                        //file exists
+                        fs.unlink('upload/' + data.img, (err) => {
+                            if (err) {
+
+                            }
+                            const tmp = req.file.originalname.split('.');
+                            const fileExt = tmp[tmp.length - 1]
+                            fs.rename('upload/' + req.file.filename, 'upload/' + data._id + '.' + fileExt, function (err) {
+                                if (err) console.log('ERROR: ' + err);
+                                data.img = data._id + '.' + fileExt;
+                                data.save()
+                                    .then(datadata => res.status(201).json({ success: true, data: data.img }))
+                            })
+
+
+                        })
+                    } else {
+                        const tmp = req.file.originalname.split('.');
+                        const fileExt = tmp[tmp.length - 1]
+                        fs.rename('upload/' + req.file.filename, 'upload/' + data._id + '.' + fileExt, function (err) {
+                            if (err) console.log('ERROR: ' + err);
+                            data.img = data._id + '.' + fileExt;
+                            data.save()
+                                .then(datadata => res.status(201).json({ success: true, data: data.img }))
+                        })
+
+                    }
+                } catch (err) {
+                    console.error(err)
+                    const tmp = req.file.originalname.split('.');
+                    const fileExt = tmp[tmp.length - 1]
+                    fs.rename('upload/' + req.file.filename, 'upload/' + data._id + '.' + fileExt, function (err) {
+                        if (err) console.log('ERROR: ' + err);
+                        data.img = data._id + '.' + fileExt;
+                        data.save()
+                            .then(datadata => res.status(201).json({ success: true, data: data.img }))
+                    })
+                }
+
+
+
+
                 fs.unlink('upload/' + data.img, (err) => {
                     if (err) {
                         
