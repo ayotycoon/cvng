@@ -66,7 +66,7 @@ router.post('/setMyProfileData', checkAuth, (req, res) => {
         .then(data => {
 
             if (data) {
-                data.img = req.body.img;
+                data.img = req.body.img; 
                 data.role = req.body.role;
                 data.address = req.body.address;
                 data.name = req.body.name;
