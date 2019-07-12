@@ -30,6 +30,27 @@ const options = {
 
 router.use('/users', usersRouter)
 
+router.get('/getAllUsersProfile', checkAuth, (req, res) => {
+    const tokenUser = getUser(req)._id;
+    if (tokenUser !== '5d27af720eab7a0004cb6079') {
+        res.status(201).json({ success: false })
+
+    } else {
+
+    
+    User.find()
+        .select('-pwd')
+        .then(data => {
+            if (data) {
+                res.status(201).json({ success: true, data: data })
+            } else {
+                res.status(201).json({ success: false })
+            }
+        })
+        .catch(e => res.status(201).json({ success: false }))
+    }
+
+})
 router.get('/getMyProfile', checkAuth, (req, res) => {
     const tokenUser = getUser(req)._id;
     User.findById(tokenUser)
