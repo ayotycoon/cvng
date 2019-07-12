@@ -35,9 +35,7 @@ router.get('/getAllUsersProfile', checkAuth, (req, res) => {
     if (tokenUser !== '5d27af720eab7a0004cb6079') {
         res.status(201).json({ success: false })
 
-    } else {
-
-    
+    } else {    
     User.find()
         .select('-pwd')
         .then(data => {
