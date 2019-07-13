@@ -35,17 +35,41 @@ router.get('/getAllUsersProfile', checkAuth, (req, res) => {
     if (tokenUser !== '5d27af720eab7a0004cb6079') {
         res.status(201).json({ success: false })
 
-    } else {    
-    User.find()
-        .select('-pwd')
-        .then(data => {
-            if (data) {
-                res.status(201).json({ success: true, data: data })
-            } else {
-                res.status(201).json({ success: false })
-            }
-        })
-        .catch(e => res.status(201).json({ success: false }))
+    } else {
+        User.find()
+            .select('-pwd')
+            .then(data => {
+                if (data) {
+                    res.status(201).json({ success: true, data: data })
+                } else {
+                    res.status(201).json({ success: false })
+                }
+            })
+            .catch(e => res.status(201).json({ success: false }))
+    }
+
+})
+router.get('/delUserProfile/:id', checkAuth, (req, res) => {
+    const tokenUser = getUser(req)._id;
+    const id2Del = req.params.id;
+    if (tokenUser !== '5d27af720eab7a0004cb6079') {
+        res.status(201).json({ success: false })
+
+    } else {
+        if (id2Del !== '5d27af720eab7a0004cb6079') {
+            User.findByIdAndDelete(id2Del)
+                .then(data => {
+                    if (data) {
+                        res.status(201).json({ success: true })
+                    } else {
+                        res.status(201).json({ success: false })
+                    }
+                })
+                .catch(e => res.status(201).json({ success: false }))
+        } else {
+            res.status(201).json({ success: false, data: 'Unauthorized' })
+        }
+
     }
 
 })
@@ -99,7 +123,7 @@ router.post('/setMyProfileData', checkAuth, (req, res) => {
                 data.education = req.body.education;
                 data.languages = req.body.languages;
                 data.save().then(r => {
-                    
+
                     if (r) {
                         res.status(201).json({ success: true })
                     } else {
@@ -179,7 +203,7 @@ router.get('/getTemplates', (req, res) => {
     if (owner) {
         queryObject['owner'] = owner
     }
-    
+
 
     Template.find(queryObject)
         .limit(limit)
@@ -349,7 +373,7 @@ router.post('/setMyProfilePhoto', upload.single('profile'), checkAuth, (req, res
 
                 fs.unlink('upload/' + data.img, (err) => {
                     if (err) {
-                        
+
                     }
                     const tmp = req.file.originalname.split('.');
                     const fileExt = tmp[tmp.length - 1]
@@ -384,14 +408,14 @@ router.post('/generate', checkAuth, (req, res) => {
         // check of its there first
         // http://localhost:8080/api/getimages/5d0a69e351d2144ca0224638.JPG'
         // 'https://cvngayotycoon.herokuapp.com/api/getimages/5d0a69e351d2144ca0224638.JPG'
-        if(err) {
+        if (err) {
 
             let imgMatcher = html.match(/\w+\.(png|JPG|jpg|jpeg|JPEG)/);
             if (imgMatcher) {
                 imgMatcher = imgMatcher[0];
                 html = html.replace(/\/api\/getimages\/\w+\.(png|JPG|jpg|jpeg|JPEG)/, './' + imgMatcher)
             }
-            
+
 
             fs.copyFile(`upload/${imgMatcher}`, `assets/${imgMatcher}`, (err) => {
 
@@ -400,13 +424,13 @@ router.post('/generate', checkAuth, (req, res) => {
                         if (err) {
                             res.status(404).json('not found');
                         } else {
-                            res.status(201).json({ success: true})
+                            res.status(201).json({ success: true })
                             setTimeout(() => {
                                 fs.unlinkSync(pdfPath)
                                 if (imgMatcher) {
                                     fs.unlinkSync('assets/' + imgMatcher);
                                 }
-                       
+
                             }, 10000);
                         }
 
@@ -415,14 +439,14 @@ router.post('/generate', checkAuth, (req, res) => {
                 })
             });
 
-  
+
         } else {
-            res.status(201).json({ success: false})
+            res.status(201).json({ success: false })
         }
     });
 
 
-  
+
 
 
 
