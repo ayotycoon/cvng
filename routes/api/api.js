@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router()
-const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
 const path = require('path');
 // models
@@ -298,6 +297,7 @@ router.post('/savetemplate', upload.single('image'), checkAuth, (req, res) => {
         Template.findByIdAndUpdate(req.body.id)
             .then(data => {
                 if (data) {
+                    // delete the current template image
                     fs.unlinkSync('upload/' + data.path)
 
                     fs.rename('upload/' + req.file.filename, 'upload/' + data.path, function (err) {
@@ -305,6 +305,7 @@ router.post('/savetemplate', upload.single('image'), checkAuth, (req, res) => {
                         console.log('here')
                         data.template = req.body.template;
                         data.options = options;
+                        data.date = new Date();
                         data.save()
                             .then(datadata => res.status(201).json({ success: true, data: data._id }))
                     })
