@@ -116,6 +116,7 @@ router.post('/setMyProfileData', checkAuth, (req, res) => {
                 data.smTwitter = req.body.smTwitter;
                 data.phone = req.body.phone;
                 data.bio = req.body.bio;
+                data.dob = req.body.dob;
                 data.skills = req.body.skills;
                 data.softwares = req.body.softwares;
                 data.experience = req.body.experience;
