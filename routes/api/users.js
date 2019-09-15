@@ -24,7 +24,7 @@ router.post('/register', function (req, res, next) {
 
     }, function (error, response, body) {
         body = JSON.parse(body);
-        if(body.success) {
+        if(!body.success) {
 
                 User.findOne({ email: req.body.email }).then(user => {
                     if (user) {

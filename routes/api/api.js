@@ -104,9 +104,8 @@ router.get('/getNameFromId/:id', (req, res) => {
 router.post('/setMyProfileData', checkAuth, (req, res) => {
     const tokenUser = getUser(req)._id;
     User.findByIdAndUpdate(tokenUser)
-        .select('-pwd')
+        .select('-pwd -resume')
         .then(data => {
-
             if (data) {
                 data.role = req.body.role;
                 data.address = req.body.address;
