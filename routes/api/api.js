@@ -374,7 +374,7 @@ router.post('/setMyProfilePhoto', upload.single('profile'), checkAuth, (req, res
 
 })
 
-router.post('/generate', checkAuth, (req, res) => {
+router.post('/generate', checkAuth, (req, res) => { 
     const tokenUser = getUser(req)._id;
     let html = req.body.html;
     const pdfPath = `upload/${tokenUser}.pdf`;
@@ -402,7 +402,12 @@ router.post('/generate', checkAuth, (req, res) => {
                             setTimeout(() => {
                                 fs.unlinkSync(pdfPath)
                                 if (imgMatcher) {
-                                    fs.unlinkSync('assets/' + imgMatcher);
+                                    try {
+                                        fs.unlinkSync('assets/' + imgMatcher);
+                                    } catch (error) {
+                                        
+                                    }
+                                   
                                 }
 
                             }, 10000);
