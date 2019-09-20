@@ -39,10 +39,15 @@ module.exports = (req, res) => {
                 errors.push({ text: isAllSplitStringUpperCase(value).error, serious: true })
 
             }
-            if (value.split(' ').length >3) {
-                errors.push({ text: 'Name should contain first 3 names', serious: false })
+            if (value.split(' ').length < 2) {
+                errors.push({ text: 'You should add your other names', serious: true })
 
             }
+            if (value.split(' ').length >3) {
+                errors.push({ text: 'Only your first 3 names is usually needed', serious: false })
+
+            }
+
             break;
         case 'role':
             if (!isStringUpperCase(value).valid) {
