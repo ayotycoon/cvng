@@ -279,7 +279,7 @@ router.post('/savetemplate', upload.single('image'), checkAuth, (req, res) => {
     if (req.body.id == 'false' || req.body.id == false) {
 
         const _id = new mongoose.Types.ObjectId();
-        const templatePath = 'template_' + tokenUser + '_' + _id + '.png';
+        const templatePath = 'template_' + tokenUser + '_' + _id.toHexString() + '.png';
         fs.rename('upload/' + req.file.filename, 'upload/' + templatePath, function (err) {
             if (err) console.log('ERROR: ' + err);
 
@@ -293,7 +293,7 @@ router.post('/savetemplate', upload.single('image'), checkAuth, (req, res) => {
             })
             template.save()
                 .then(data => res.status(201).json({ success: true, data: _id }))
-                .catch(err => res.status(201).json({ success: false }))
+                .catch(err => res.status(201).json({ success: false, msg: err }))
 
         });
 
@@ -378,7 +378,7 @@ router.post('/setMyProfilePhoto', upload.single('profile'), checkAuth, (req, res
 
 })
 
-router.post('/generate', checkAuth, (req, res) => { 
+router.post('/generate', checkAuth, (req, res) => {
     const tokenUser = getUser(req)._id;
     let html = req.body.html;
     const pdfPath = `upload/${tokenUser}.pdf`;
@@ -409,9 +409,9 @@ router.post('/generate', checkAuth, (req, res) => {
                                     try {
                                         fs.unlinkSync('assets/' + imgMatcher);
                                     } catch (error) {
-                                        
+
                                     }
-                                   
+
                                 }
 
                             }, 10000);
