@@ -22,6 +22,7 @@ const base = path.resolve('./assets').replace(/\\/g, '/');
 const options = {
     base: `file:///${base}/`,
     format: "A4",
+    quality: 100,
     border: {
         top: '0.5in',
         bottom: '0.5in'
