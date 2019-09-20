@@ -23,8 +23,8 @@ const options = {
     base: `file:///${base}/`,
     format: "A4",
     border: {
-        top: '2in',
-        bottom: '2in'
+        top: '0.5in',
+        bottom: '0.5in'
     }
 }
 
