@@ -21,7 +21,11 @@ const base = path.resolve('./assets').replace(/\\/g, '/');
 // 'file:///C:/Users/USER/Documents/aaa-PROJECTS/cvng/apiServer/assets/'
 const options = {
     base: `file:///${base}/`,
-    format: "A4"
+    format: "A4",
+    border: {
+        top: '2in',
+        bottom: '2in'
+    }
 }
 
 
