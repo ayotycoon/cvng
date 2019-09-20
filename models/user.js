@@ -6,37 +6,44 @@ const user = mongoose.Schema({
     email: {
         type: String,
         trim: true,
+        default: '',
         required: true
     },
     role: {
         type: String,
         trim: true,
+        default: '',
         default: ''
     },
     address: {
         type: String,
         trim: true,
+        default: '',
         default: ''
     },
     smLinkedln: {
         type: String,
         trim: true,
+        default: '',
         default: ''
     },
     smTwitter: {
         type: String,
         trim: true,
+        default: '',
         default: ''
     },
 
     phone: {    //phone
         type: String,
         trim: true,
+        default: '',
         required: true
     },
     name: {
         type: String,
         trim: true,
+        default: '',
         required: true
     },
     dev: {
@@ -46,22 +53,26 @@ const user = mongoose.Schema({
     smTwitter: {
         type: String,
         trim: true,
+        default: '',
         default: ''
     },
     smLinkedln: {
         type: String,
         trim: true,
+        default: '',
         default: ''
     },
     bio: {
         type: String,
         trim: true,
+        default: '',
         default: ''
     },
     skills: [{
         skill: {
             type: String,
             trim: true,
+            default: '',
 
         }, grade: Number
     }],
@@ -69,6 +80,7 @@ const user = mongoose.Schema({
         software: {
             type: String,
             trim: true,
+            default: '',
 
         }, grade: Number
     }],
@@ -76,18 +88,22 @@ const user = mongoose.Schema({
         workplace: {
             type: String,
             trim: true,
+            default: '',
 
         }, points: {
             type: String,
             trim: true,
+            default: '',
 
         }, startYear: Number, endYear: {
             type: String,
             trim: true,
+            default: '',
 
         }, address: {
             type: String,
             trim: true,
+            default: '',
 
         }, role: String
     }],
@@ -95,14 +111,17 @@ const user = mongoose.Schema({
         school: {
             type: String,
             trim: true,
+            default: '',
 
         }, degree: {
             type: String,
             trim: true,
+            default: '',
 
         }, points: {
             type: String,
             trim: true,
+            default: '',
 
         }, startYear: Number, endYear: String
     }],
@@ -112,13 +131,13 @@ const user = mongoose.Schema({
             title: {
                 type: String,
                 trim: true,
+                default: '',
 
             }, grade: Number
         }
     ],
     img: {
         type: String,
-        trim: true,
         default: Math.round(Math.random()) === 1 ? './assets/sample1.svg' : './assets/sample2.svg'
     },
     resume: {
@@ -130,17 +149,20 @@ const user = mongoose.Schema({
     pwd: {    //password
         type: String,
         trim: true,
+        default: '',
         required: true
     },
     interests: [{
         title: {
             type: String,
-            trim: true
+            trim: true,
+            default: ''
         }, grade: Number
     }],
     dob: {
         type: String,
-        trim: true
+        trim: true,
+        default: ''
     },
 
 

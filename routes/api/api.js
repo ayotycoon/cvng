@@ -480,6 +480,7 @@ router.get('/getpdf/:path', (req, res) => {
 
 
 })
+router.post('/tipper', require('../../tipper') )
 
 
 
