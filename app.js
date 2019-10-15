@@ -17,8 +17,16 @@ require('dotenv').config()
 const mongoose = require('mongoose');
 
 let port = 8080;
-const ISPRODUCTION = process.env.ISPRODUCTION;
-if (ISPRODUCTION == 'false') {
+let ISPRODUCTION = true;
+
+if (process.platform === "win32") {
+    // if env is windows set production to false
+    ISPRODUCTION = false;
+}
+
+
+
+if (!ISPRODUCTION) {
     console.log('1')
     const cors = require('cors');
     app.use(cors());
