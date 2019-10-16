@@ -16,21 +16,14 @@ require('dotenv').config()
 // mongoose
 const mongoose = require('mongoose');
 
-let port = 4000;
-let ISPRODUCTION = true;
 
+
+let port = 8080;
 if (process.platform === "win32") {
-    // if env is windows set production to false
-    ISPRODUCTION = false;
-    port = 8080;
-}
-
-
-
-if (!ISPRODUCTION) {
     console.log('development')
     const cors = require('cors');
     app.use(cors());
+    port = 8080;
 
 }
 mongoose.connect(process.env.CONNECTION_URI_web, { useNewUrlParser: true }).then(c => console.log('connected to db'))
