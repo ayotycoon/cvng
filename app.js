@@ -18,7 +18,7 @@ const mongoose = require('mongoose');
 
 
 
-let port = 6000;
+let port = 8081;
 if (process.platform === "win32") {
     console.log('development')
     const cors = require('cors');
