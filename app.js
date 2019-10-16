@@ -35,7 +35,6 @@ if (!ISPRODUCTION) {
         .catch(c => console.log('connection to db error local'))
 } else {
     console.log('2')
-    port = process.env.PORT;
     mongoose.connect(process.env.CONNECTION_URI_web, { useNewUrlParser: true }).then(c => console.log('connected to db'))
         .catch(c => console.log('connection to db error - web'))
 }
@@ -49,6 +48,6 @@ app.get('*', (req, res) => {
 
 
 app.listen(port, () => {
-    console.log('connected to server');
+    console.log('connected to server, port '+ port);
 })
 module.exports = app;
