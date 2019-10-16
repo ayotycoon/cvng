@@ -16,7 +16,7 @@ require('dotenv').config()
 // mongoose
 const mongoose = require('mongoose');
 
-let port = 1000;
+let port = 4000;
 let ISPRODUCTION = true;
 
 if (process.platform === "win32") {
@@ -28,16 +28,13 @@ if (process.platform === "win32") {
 
 
 if (!ISPRODUCTION) {
-    console.log('1')
+    console.log('development')
     const cors = require('cors');
     app.use(cors());
-    mongoose.connect(process.env.CONNECTION_URI_local, { useNewUrlParser: true }).then(c => console.log('connected to db'))
-        .catch(c => console.log('connection to db error local'))
-} else {
-    console.log('2')
-    mongoose.connect(process.env.CONNECTION_URI_web, { useNewUrlParser: true }).then(c => console.log('connected to db'))
-        .catch(c => console.log('connection to db error - web'))
+
 }
+mongoose.connect(process.env.CONNECTION_URI_web, { useNewUrlParser: true }).then(c => console.log('connected to db'))
+    .catch(c => console.log('connection to db error - web'))
 
 app.use('/api', apiRouter);
 app.use('/admin', adminRouter);
