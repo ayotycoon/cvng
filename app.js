@@ -16,7 +16,7 @@ require('dotenv').config()
 // mongoose
 const mongoose = require('mongoose');
 
-let port = 6000;
+let port = 1000;
 let ISPRODUCTION = true;
 
 if (process.platform === "win32") {
